@@ -1,0 +1,44 @@
+
+
+不同的Mac OSX版本默认安装着不同的php版本
+
+例如OSX10.10版本
+
+进入官网下载源码包：http://php.net/downloads.php
+yosemite下版本是5.5.20 所以下载对应的5.5版本，选择第一个php-5.5.32.tar.bz2
+
+下载完之后解压，用终端进入目录：
+
+cd ~/Downloads/php-5.5.32/ext/mcrypt/
+phpize 或者 /usr/bin/phpize
+
+./configure
+
+make
+复制编译好的文件：
+
+sudo cp modules/mcrypt.so /usr/lib/php/extensions/no-debug-non-zts-20121212
+
+修改php.ini文件：
+sudo vim /etc/php.ini
+添加如下，引用mcrypt模块：
+extension=mcrypt.so
+可以在终端下输入php -v来差错php.ini文件
+重启Apache：
+sudo apachectl restart
+
+以上方法无效时，可尝试：
+
+禁SIP
+所以解决方法就是禁掉SIP保护机制，步骤是：
+•重启系统
+•按住Command + R
+•菜单“实用工具” ==>> “终端” ==>> 输入csrutil disable；执行后会输出：Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.
+•再次重启系统
+
+禁止掉SIP后，就可以顺利的安装了，当然装完了以后你可以重新打开SIP，方法同上，只是命令是csrutil enable
+
+重启系统，尝试最初的php安装方法
+
+
+

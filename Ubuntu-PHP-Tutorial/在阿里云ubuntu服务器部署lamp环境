@@ -1,0 +1,81 @@
+阿里云在论坛中有关于CentOS 5.7 64系统的操作手册，但是拿到手的时候装的ubuntu系统，无法按照手册完成环境安装。   
+
+拿到手的服务器基本上就是一个裸系统，最后先使用以下2条命令将apt-get更新升级。
+
+apt-get update;
+
+apt-get upgrade;
+
+1.安装apache2
+
+apt-get install apache2
+
+apache2安装在/etc/apache2，命令使用为/etc/init.d/apache2 restart/stop/restart。
+
+安装完后apache的根目录在/var/www上，建一个子目录mysite，自己站点的代码都放在mysite中。
+
+命令中输入wget http://127.0.0.1 即可看到结果。
+
+2.安装mysql
+
+apt-get install mysql-server
+
+3.安装php5
+
+apt-get install php5
+
+4.安装svn
+
+apt-get install subversion
+
+在/var/www目录下执行svn co http://svn.xxx.com mysite，将代码下载到mysite目录中。
+
+5.安装curl
+
+判断curl是否已经正确安装。
+
+<?php 
+phpinfo(); 
+?>
+
+打开的页面中搜索curl，如果找不到说明没有安装成功。
+
+apt-get install curl libcurl3 libcurl3-dev php5-curl
+
+ /etc/init.d/apache2 restart
+
+6.开启rewrite功能
+
+sudo a2enmod rewrite
+
+7.安装gd模块
+
+apt-get install php5-gd
+
+8.安装mysql模块，否则php无法访问mysql服务器
+
+apt-get install php5-mysql
+
+9.使用.htaccess
+
+在mysite目录下新建一个.htaccess文件，为了让该文件生效，需要在/etc/apache2/sites-available/default文件中增加mysite的配置
+
+<Directory /var/www/mysite/>
+
+       Options Indexes FollowSymLinks MultiViews
+
+       AllowOverride All
+
+       Order allow,deny
+
+       allow from all
+
+</Directory>
+
+ 
+
+整个过程中注意如果修改了apache的配置，必须重启apache。
+
+其中还有一点需要注意， PHP 也许只能以运行 webserver 的用户名（通常为 'nobody'）来访问文件。
+
+整个过程中，需要注意php应用对于文件系统的访问权限，否则很有可能导致500错误，在这个地方吃亏吃大了。

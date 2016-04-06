@@ -1,0 +1,18 @@
+
+第一种方式：
+
+1、xampp下载地址：www.apachefriends.org
+2、下载.run的文件放到/opt文件夹下
+3、安装xampp
+    [root@Zabbix opt]# chmod +x xampp-linux-1.8.3-5-installer.run
+    [root@Zabbix opt]# ./xampp-linux-1.8.3-5-installer.run
+    xampp <wbr>for <wbr>linux安装.run文件
+4、安装完成后选择安装语言
+
+第二种方式：
+
+直接下载
+sudo wget https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/5.6.15/xampp-linux-x64-5.6.15-2-installer.run
+
+步骤同上
+
