@@ -1,0 +1,53 @@
+
+数据库的一些操作：
+
+1.limit语句
+
+skip($from)->take($to)相当于limit $from,$to<br />
+$data['pasts'] = DB::table("pasts")->orderBy("updated_at", "desc")->skip($from)->take($to)->get();<br />
+
+2.排序
+
+//根据更新时间排序
+$totalData = DB::table("pasts")->orderBy("updated_at", "desc")->get();
+
+3.翻页
+
+$data['pasts']-总数据<br />
+count($totalData)-数据总条数<br />
+$page-当前页<br />
+
+//把数据存入翻页类中<br />
+$data['paginator'] = new Paginator($data['pasts'], count($totalData), $page);<br />
+
+4.删除
+
+//删除where条件的数据
+$result = DB::table("pasts")->where("uid",$uid)->where("pid",$pid)->delete();
+
+5.增加
+
+//添加多个数据进数据表
+DB::table('users')->insert([
+    ['email' => 'taylor@example.com', 'votes' => 0],
+    ['email' => 'dayle@example.com', 'votes' => 0]
+]);
+
+6.修改
+
+//更新数据表中的数据
+DB::table('users')->where('id', 1)->update(['votes' => 1]);
+
+7.select 1 from 表
+
+$result = DB::table('favorites')->select(DB::raw(1))->first();
+
+8.获取表里面的一个字段
+
+//返回的数据依旧是object类型，获取pid的方式：$favorite->pid
+$favorite = DB::table("favorites")->select("pid")->where("fid",$fid)->first();
+
+9.集合 Collection
+
+$collection = Collection::make([1, 2, 3]);
+var_dump($collection[2]);
